@@ -1,40 +1,40 @@
 import pandas as pd
 
-
+#creamos dataframes con los archivos de cada plataforma
 dfnetflix = pd.read_json("datasets/netflix_titles.json")
 dfamazon = pd.read_csv("datasets/amazon_prime_titles.csv")
 dfdisney = pd.read_csv("datasets/disney_plus_titles.csv")
 dfhulu = pd.read_csv("datasets/hulu_titles.csv")
 
 
-
+#le agregamos la columna plataforma con su respectivo nombre
 dfnetflix["plataforma"] = "Netflix"
 dfamazon["plataforma"] = "Amazon prime"
 dfdisney["plataforma"] = "Disney plus"
 dfhulu["plataforma"] = "Hulu"
 
-
+#indicamos las columnas a utilizar
 netflix = dfnetflix[["duration","type","plataforma","release_year","listed_in","cast"]]
 amazon = dfamazon[["duration","type","plataforma","release_year","listed_in","cast"]]
 disneyplus = dfdisney[["duration","type","plataforma","release_year","listed_in","cast"]]
 hulu = dfhulu[["duration","type","plataforma","release_year","listed_in","cast"]]
 
-
+#cambiamos el nombre de las coumnas a utilizar
 netflix.columns = ['Duración', 'Pelicula_Serie', 'Plataforma', 'Año', 'Genero', 'Actores']
 amazon.columns = ['Duración', 'Pelicula_Serie', 'Plataforma', 'Año', 'Genero', 'Actores']
 disneyplus.columns = ['Duración', 'Pelicula_Serie', 'Plataforma', 'Año', 'Genero', 'Actores']
 hulu.columns = ['Duración', 'Pelicula_Serie', 'Plataforma', 'Año', 'Genero', 'Actores']
 
-
+#unimos los diferentes dataframes en uno solo
 movies = pd.concat([netflix, amazon, disneyplus,hulu]).reset_index()
 movies = movies.drop(['index'], axis=1)
 
-
+#corregimos valores del dataframe
 movies["Duración"] = movies["Duración"].replace({"[a-zA-Z]":""}, regex=True)
 movies["Duración"] = movies["Duración"].fillna(0)
 movies["Duración"] = movies["Duración"].astype("int64")
 
-
+#aplicamos las funciones
 
 #Máxima duración según tipo de film (película/serie), por plataforma y por año:
 #    El request debe ser: get_max_duration(año, plataforma, [min o season])
