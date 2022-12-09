@@ -1,6 +1,7 @@
-#utilizamos la imgen del usua tiangolo
+#utilizamos la imgen tiangolo
 FROM tiangolo/uvicorn-gunicorn-fastapi
 
+#instalamos pandas
 RUN pip install pandas
 
 #abrimos el puerto que utilizaremos
