@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from datasets_etl import get_max_duration, get_count_platform, get_listedin, get_actor
+import pandas
 
 #creamos FastApi
 app = FastAPI()
